@@ -26,6 +26,8 @@ class Paint(object):
 
        self.colorLabel = Label(self.root, text = "Colors", font = "Arial 18", bd= 2, justify = CENTER)
        self.colorLabel.grid(rowspan= 2, row = 1, column = 6)
+       self.redLabel= Button(self.root, text="Red", font="Arial 12", bg="red", justify=CENTER)
+       self.redLabel.grid(rowspan=2, row=2, column=6)
 
        self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
 
