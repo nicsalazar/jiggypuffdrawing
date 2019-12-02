@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter.colorchooser import askcolor
+# from tkinter.colorchooser import askcolor
 from PIL import Image, ImageTk
 
 class Paint(object):
@@ -12,8 +12,12 @@ class Paint(object):
        self.root = Tk()
        self.root.title("JigglyPuff's Drawing Palace")
 
-       self.color_button = Button(self.root, text='color', command=self.choose_color)
-       self.color_button.grid(row=0, column=2)
+       self.Title = Label(self.root, text = "JigglyPuff's Drawing Palace", font = "Arial 20 bold" , justify = CENTER,
+                          bd = 2, relief = RAISED)
+       self.Title.grid(row = 0, column = 5)
+
+       # self.color_button = Button(self.root, text='color', command=self.choose_color)
+       # self.color_button.grid(row=0, column=2)
 
        self.pen_button = Button(self.root, text='brush', command=self.use_pen)
        self.pen_button.grid(row=0, column=1)
@@ -24,18 +28,34 @@ class Paint(object):
                                 font = "Arial 18", bd= 2, justify = LEFT, height = 8)
        self.actualInstr.grid (rowspan = 2, row = 0, column = 6 )
 
-       self.colorLabel = Label(self.root, text = "Colors", font = "Arial 18", bd= 2, justify = CENTER)
-       self.colorLabel.grid(rowspan= 2, row = 1, column = 6)
+       # self.colorLabel = Label(self.root, text = "Colors", font = "Arial 18", bd= 2, justify = CENTER)
+       # self.colorLabel.grid(rowspan= 2, row = 1, column = 6)
+
+       self.redLabel = Button(self.root, text = "Red", font = "Arial 12", fg = "red", justify = CENTER, command = self.redCallback)
+       self.redLabel.grid(rowspan = 3, row = 5, column = 1, columnspan = 1)
+
+       self.blueLabel = Button(self.root, text = "Blue", font = "Arial 12", fg = "blue", justify = CENTER, command = self.blueCallback)
+       self.blueLabel.grid(rowspan = 3, row = 5, column = 2, columnspan =1)
+
+       self.greenLabel = Button(self.root, text = "Green", font = "Arial 12", fg = "green", justify = CENTER, command = self.greenCallback)
+       self.greenLabel.grid(rowspan = 3, row = 5, column = 3, columnspan = 1)
+
+       self.yellowLabel = Button(self.root, text = "Yellow", font = "Arial 12", fg = "gold", justify = CENTER, command = self.yellowCallback)
+       self.yellowLabel.grid(rowspan = 3, row = 5, column = 4, columnspan = 1)
+
+       self.blackLabel = Button(self.root, text = "Black", font = "Arial 12", fg = "black", justify = CENTER, command = self.blackCallback)
+       self.blackLabel.grid(rowspan = 3, row = 5, column = 5, columnspan = 1)
 
        self.eraser_button = Button(self.root, text='eraser', command=self.use_eraser)
 
-       self.eraser_button.grid(row=0, column=3)
+       self.eraser_button.grid(row=0, column=2)
 
        self.choose_size_button = Scale(self.root, from_=1, to=10,orient = HORIZONTAL)
-       self.choose_size_button.grid(row=0, column=4)
+       self.choose_size_button.grid(row=0, column=3)
 
        self.c = Canvas(self.root, bg='white', width=600, height=600,relief= RAISED, bd= 2)
        self.c.grid(row=1, columnspan=5, column=1, padx=20, pady=20, rowspan=2)
+
 
        self.setup()
 
@@ -54,13 +74,12 @@ class Paint(object):
    def use_pen(self):
        self.activate_button(self.pen_button)
 
-   def choose_color(self):
-       self.eraser_on = False
-       self.color = askcolor(color=self.color)[1]
+   # def choose_color(self):
+   #     self.eraser_on = False
+   #     self.color = askcolor(color=self.color)[1]
 
    def use_eraser(self):
        self.activate_button(self.eraser_button, eraser_mode=True)
-
 
    def activate_button(self, some_button, eraser_mode=False):
 
@@ -69,6 +88,25 @@ class Paint(object):
        self.active_button = some_button
        self.eraser_on = eraser_mode
 
+   def redCallback(self):
+       self.eraser_on = False
+       self.color = "red"
+
+   def blueCallback(self):
+       self.erase_on = False
+       self.color = "blue"
+
+   def greenCallback(self):
+       self.eraser_on = False
+       self.color = "green"
+
+   def yellowCallback(self):
+       self.eraser_on = False
+       self.color = "gold"
+
+   def blackCallback(self):
+       self.eraser_on = False
+       self.color = "black"
 
    def paint(self, event):
        self.line_width = self.choose_size_button.get()
@@ -82,6 +120,7 @@ class Paint(object):
 
        self.old_x = event.x
        self.old_y = event.y
+
 
    def reset(self, event):
        self.old_x, self.old_y = None, None
