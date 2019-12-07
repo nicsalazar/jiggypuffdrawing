@@ -1,9 +1,16 @@
+"""Grace Lin and Nicole Salazar
+Comp 123"""
+"""This file contains Jigglypuff's Drawing Palace, a pretty basic drawing program with an eraser, a pen with five colors (red, blue, green,
+yellow, black), and a canvas. The user can draw with their computer cursor and channel their creativity. We used tkinter and
+PIL in order to create our program."""
+"""ON TESTING: We tested our program through trial and error. Since we used tkinter, we decided it was best to test the program as it grew
+rather than testing each separate part. We started out with a GUI base and continuously added to it, running and calling 
+the entire code after each addition. We were especially experimental 
+with the row and column placement of the labels in order to get them to the right place."
 from tkinter import *
-# from tkinter.colorchooser import askcolor
 from PIL import Image, ImageTk
 
 class Paint(object):
-
    DEFAULT_PEN_SIZE = 5.0
    DEFAULT_COLOR = 'black'
 
