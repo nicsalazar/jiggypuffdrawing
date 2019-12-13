@@ -1,23 +1,25 @@
 from tkinter import *
 # from tkinter.colorchooser import askcolor
 from PIL import Image, ImageTk
-
+"""This code creates a canvas, pen, eraser, and thickness slider along with colors and instructions in order for the user to draw. It 
+can be used to draw and get creative. You can just run it and close the window once you are done with the program. A very simple version of
+MS Paint in homage to JigglyPuff, the Pokemon"""
+"""ON TESTING: We created a skeleton for our GUI and tested as we kept adding, 
+so this code has been progressively been tampered with. There are no actual calls or test files, but in the # comments,
+you can see how we tested some parts. We used trial and error for the grid placement of buttons"""
 class Paint(object):
 
-   DEFAULT_PEN_SIZE = 5.0
+   DEFAULT_PEN_SIZE = 5.0 #these two lines set the default color and thickness, so the user can get started
    DEFAULT_COLOR = 'black'
 
    def __init__(self):
-
+      #This sets up our base for our game: Canvas, buttons, instructions, etc
        self.root = Tk()
        self.root.title("JigglyPuff's Drawing Palace")
 
        self.Title = Label(self.root, text = "JigglyPuff's Drawing Palace", font = "Arial 20 bold" , justify = CENTER,
                           bd = 2, relief = RAISED)
-       self.Title.grid(row = 0, column = 5)
-
-       # self.color_button = Button(self.root, text='color', command=self.choose_color)
-       # self.color_button.grid(row=0, column=2)
+       self.Title.grid(row = 0, column = 5)                 #this creates the title label
 
        self.pen_button = Button(self.root, text='brush', command=self.use_pen)
        self.pen_button.grid(row=0, column=1)
@@ -27,10 +29,9 @@ class Paint(object):
                                                  "\n * If you want to change the thickness of your pen, move the slider.\n Let's get creating!", relief = RIDGE,
                                 font = "Arial 18", bd= 2, justify = LEFT, height = 8)
        self.actualInstr.grid (rowspan = 2, row = 0, column = 6 )
-
-       # self.colorLabel = Label(self.root, text = "Colors", font = "Arial 18", bd= 2, justify = CENTER)
-       # self.colorLabel.grid(rowspan= 2, row = 1, column = 6)
-
+      
+       #from here to line 48 are the color buttons that assign a color to the pen, paired with callbacks that will activate them
+         
        self.redLabel = Button(self.root, text = "Red", font = "Arial 12", fg = "red", justify = CENTER, command = self.redCallback)
        self.redLabel.grid(rowspan = 3, row = 5, column = 1, columnspan = 1)
 
@@ -51,16 +52,16 @@ class Paint(object):
        self.eraser_button.grid(row=0, column=2)
 
        self.choose_size_button = Scale(self.root, from_=1, to=10,orient = HORIZONTAL)
-       self.choose_size_button.grid(row=0, column=3)
+       self.choose_size_button.grid(row=0, column=3) #the thickness slider
 
        self.c = Canvas(self.root, bg='white', width=600, height=600,relief= RAISED, bd= 2)
-       self.c.grid(row=1, columnspan=5, column=1, padx=20, pady=20, rowspan=2)
+       self.c.grid(row=1, columnspan=5, column=1, padx=20, pady=20, rowspan=2) #and our actual Canvas!
 
 
        self.setup()
 
        self.root.mainloop()
-
+#from here, we start attributing actions to our buttons, pen, eraser, etc
    def setup(self):
        self.old_x = None
        self.old_y = None
@@ -74,10 +75,6 @@ class Paint(object):
    def use_pen(self):
        self.activate_button(self.pen_button)
 
-   # def choose_color(self):
-   #     self.eraser_on = False
-   #     self.color = askcolor(color=self.color)[1]
-
    def use_eraser(self):
        self.activate_button(self.eraser_button, eraser_mode=True)
 
@@ -87,7 +84,7 @@ class Paint(object):
        some_button.config(relief=SUNKEN)
        self.active_button = some_button
        self.eraser_on = eraser_mode
-
+#Here, you can see the callbacks that activate our color buttons
    def redCallback(self):
        self.eraser_on = False
        self.color = "red"
